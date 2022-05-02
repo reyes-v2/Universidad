@@ -6,6 +6,8 @@ import java.util.Objects;
 
 import javax.persistence.*;
 import lombok.*;
+import org.hibernate.mapping.Join;
+
 
 
 
@@ -29,11 +31,17 @@ public abstract class  Persona implements Serializable{
 	
 	private Date fechaCreacion;
 	private Date fechaModificacion;
-	
+
 	@Embedded
+	@AttributeOverrides({
+			@AttributeOverride(name="codigoPostal",column = @Column(name="codigo_postal")),
+			@AttributeOverride(name="departamento",column = @Column(name="departamento"))
+
+
+	})
 	private Direccion direccion;
 	private static final long serialVersionUID = 1825359541597205358L;
-	
+
 	
 	
 	
@@ -52,7 +60,17 @@ public abstract class  Persona implements Serializable{
 	}
 
 
+	@PrePersist
+	private void antesPersistir() {
+		this.fechaCreacion= new Date();
 
+	}
+
+	@PreUpdate
+	private void antesModificar() {
+		this.fechaModificacion= new Date();
+
+	}
 
 	@Override
 	public boolean equals(Object obj) {
