@@ -17,7 +17,6 @@ import javax.persistence.*;
 public class Direccion implements Serializable{
 
 	
-	private Integer id;
 	private String calle;
 	private String numero;
 	private String codigoPostal;
