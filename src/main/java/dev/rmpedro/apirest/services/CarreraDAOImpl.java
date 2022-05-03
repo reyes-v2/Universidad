@@ -10,33 +10,13 @@ import dev.rmpedro.apirest.entities.Carrera;
 import dev.rmpedro.apirest.repositories.CarreraRepository;
 
 @Service
-public class CarreraDAOImpl implements CarreraDAO{
+public class CarreraDAOImpl extends GenericoDAOImpl<Carrera,CarreraRepository> implements CarreraDAO{
 	
 	@Autowired
-	private CarreraRepository carreraRepository;
-	
-	@Transactional(readOnly=true)
-	@Override
-	public Optional<Carrera> buscarPorId(Integer id) {
-		return carreraRepository.findById(id);
+	public CarreraDAOImpl(CarreraRepository repository) {
+		super(repository);
 	}
 
-	@Transactional
-	@Override
-	public Carrera guardar(Carrera carrera) {
-		return carreraRepository.save(carrera);
-	}
-	
-	@Transactional(readOnly=true)
-	@Override
-	public Iterable<Carrera> buscarTodos() {
-		return carreraRepository.findAll();
-	}
-	
-	@Transactional
-	@Override
-	public void eliminarPorId(Integer id) {
-		carreraRepository.deleteById(id);
-	}
+
 
 }

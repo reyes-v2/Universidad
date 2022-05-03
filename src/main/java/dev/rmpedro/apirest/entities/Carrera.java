@@ -14,7 +14,6 @@ import javax.persistence.*;
 @Setter
 @Getter
 @NoArgsConstructor
-@ToString
 @Entity
 @Table(name = "carreras", schema = "universidad")
 public class Carrera implements Serializable{
