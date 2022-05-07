@@ -1,24 +1,28 @@
 package dev.rmpedro.apirest.services;
 
 import dev.rmpedro.apirest.entities.Persona;
-import dev.rmpedro.apirest.repositories.AlumnoRepository;
 import dev.rmpedro.apirest.repositories.PersonaRepository;
+import dev.rmpedro.apirest.repositories.ProfesorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
-
 @Service
-public class AlumnoDAOImpl extends PersonaDAOImpl implements AlumnoDAO{
+public class ProfesorDAOImpl extends PersonaDAOImpl implements ProfesorDAO{
+
+
     @Autowired
-    public AlumnoDAOImpl(@Qualifier("repositorioAlumnos")PersonaRepository repository) {
+    public ProfesorDAOImpl(@Qualifier("repositorioProfesores")PersonaRepository repository) {
         super(repository);
     }
 
-
     @Override
-    public Iterable<Persona> buscarAlumnoPorNombreCarrera(String carrera) {
-
-        return ((AlumnoRepository) repository).buscarAlumnoPorNombreCarrera(carrera);
+    public Iterable<Persona> findProfesoresByCarrera(String carrera) {
+        return ((ProfesorRepository)repository).findProfesoresByCarrera(carrera);
     }
+
+
+
+
+
 }
