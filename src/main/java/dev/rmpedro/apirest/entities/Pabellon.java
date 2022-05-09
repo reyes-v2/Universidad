@@ -9,7 +9,7 @@ import lombok.*;
 
 import javax.persistence.*;
 
-
+@AllArgsConstructor
 @Setter
 @Getter
 @NoArgsConstructor

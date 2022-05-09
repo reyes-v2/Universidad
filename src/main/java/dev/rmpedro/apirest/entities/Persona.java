@@ -10,7 +10,7 @@ import org.hibernate.mapping.Join;
 
 
 
-
+@AllArgsConstructor
 @Setter
 @Getter
 @NoArgsConstructor

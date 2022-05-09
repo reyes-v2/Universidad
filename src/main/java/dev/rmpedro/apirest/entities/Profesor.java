@@ -9,7 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.*;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
-
+@AllArgsConstructor
 @Setter
 @Getter
 @NoArgsConstructor
@@ -21,7 +21,7 @@ public class Profesor extends Persona{
 	
 	private BigDecimal sueldo;
     @ManyToMany(fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
-    @JoinTable(name = "profesor_carrera",
+    @JoinTable(name = "profesor_carrera",schema = "universidad",
             joinColumns = @JoinColumn(name = "profesor_id"),
             inverseJoinColumns = @JoinColumn(name = "carera_id")
     )

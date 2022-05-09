@@ -6,7 +6,7 @@ import java.util.Date;
 import dev.rmpedro.apirest.enums.TipoEmpleado;
 import lombok.*;
 import javax.persistence.*;
-
+@AllArgsConstructor
 @Setter
 @Getter
 @NoArgsConstructor

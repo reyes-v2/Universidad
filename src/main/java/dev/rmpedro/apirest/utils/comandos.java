@@ -1,4 +1,4 @@
-package dev.rmpedro.apirest;
+package dev.rmpedro.apirest.utils;
 
 import dev.rmpedro.apirest.entities.Aula;
 import dev.rmpedro.apirest.entities.Pabellon;
@@ -17,22 +17,22 @@ import dev.rmpedro.apirest.repositories.CarreraRepository;
 import java.util.Optional;
 
 @Component
-public class GenericoComandos implements CommandLineRunner {
+public class comandos implements CommandLineRunner {
 
-	@Autowired
-	private ProfesorDAO profesorDAO;
+    @Autowired
+    private ProfesorDAO profesorDAO;
 
-	@Autowired
-	private EmpleadoDAO empleadoDAO;
+    @Autowired
+    private EmpleadoDAO empleadoDAO;
 
-	@Autowired
-	private CarreraDAO carreraDAO;
-	@Autowired
-	private AulaDAO aulaDAO;
-	@Autowired
-	private PabellonDAO pabellonDAO;
-	@Override
-	public void run(String... args) throws Exception {
+    @Autowired
+    private CarreraDAO carreraDAO;
+    @Autowired
+    private AulaDAO aulaDAO;
+    @Autowired
+    private PabellonDAO pabellonDAO;
+    @Override
+    public void run(String... args) throws Exception {
 	/*
 		Carrera finanzas = new Carrera(null,"Ingenieria en Finanzas",20,3);
 		Carrera carrera = carreraDAO.guardar(finanzas);
@@ -58,7 +58,6 @@ public class GenericoComandos implements CommandLineRunner {
 	/*	Iterable<Persona> empleados = empleadoDAO.findEmpleadoByTipoEmpleado(TipoEmpleado.MANTENIMIENTO);
 		empleados.forEach(System.out::println);*/
 		/*Iterable<Carrera> carreras = carreraDAO.buscarCarrerasPorProfesorNombreYApellido("Pedro","Reyes");
-
 		carreras.forEach(System.out::println);*/
 		/*Iterable<Aula> aulas = aulaDAO.findAulaByPizarronEquals(Pizarron.PIZARRA_BLANCA);
 		aulas.forEach(System.out::println);*/
@@ -66,11 +65,11 @@ public class GenericoComandos implements CommandLineRunner {
 		/*Iterable<Aula> aulas = aulaDAO.findAulaByPabellonNombre("Pabellon Arreola");
 		aulas.forEach(System.out::println);*/
 
-		Iterable<Pabellon> pabellon = pabellonDAO.findPabellonsByDireccionLocalidad("Cd Guzman");
-		pabellon.forEach(System.out::println);
+        Iterable<Pabellon> pabellon = pabellonDAO.findPabellonsByDireccionLocalidad("Cd Guzman");
+        pabellon.forEach(System.out::println);
 
 
 
-	}
+    }
 
 }
