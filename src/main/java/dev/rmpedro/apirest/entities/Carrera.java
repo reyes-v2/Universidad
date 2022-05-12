@@ -10,10 +10,10 @@ import lombok.*;
 
 import javax.persistence.*;
 
-@AllArgsConstructor
+//@AllArgsConstructor
 @Setter
 @Getter
-@NoArgsConstructor
+//@NoArgsConstructor
 @Entity
 //@Table(name = "carreras", schema = "universidad")
 @Table(name = "carreras")
@@ -52,6 +52,8 @@ public class Carrera implements Serializable{
 		this.cantidadAnios = cantidadAnios;
 	}
 
+	public Carrera() {
+	}
 
 	@Override
 	public int hashCode() {

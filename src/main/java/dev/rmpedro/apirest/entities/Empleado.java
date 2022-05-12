@@ -23,7 +23,7 @@ public class Empleado extends Persona{
 	private TipoEmpleado tipoEmpleado;
 	
 	@OneToOne(optional=true,cascade= CascadeType.ALL)
-	@JoinColumn(name = "pabellon_id", foreignKey = @ForeignKey(name = "FK_PABELLON_ID"))
+	@JoinColumn(name = "pabellon_id", foreignKey = @ForeignKey(name = "FK_PABELLON_ID_EMPLEADO"))
     private Pabellon pabellon;
 
 
@@ -32,7 +32,8 @@ public class Empleado extends Persona{
 		this.sueldo=sueldo;
 		this.tipoEmpleado=tipoEmpleado;
 	}
-	
+
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder(super.toString());

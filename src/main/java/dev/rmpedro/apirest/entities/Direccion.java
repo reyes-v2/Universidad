@@ -10,7 +10,6 @@ import javax.persistence.*;
 
 @Setter
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
 @ToString
 @Embeddable
@@ -25,7 +24,13 @@ public class Direccion implements Serializable{
 	private String localidad;
 	@Serial
 	private static final long serialVersionUID = -6409397347896412403L;
-	
-	
 
+	public Direccion(String calle, String numero, String codigoPostal, String departamento, String piso, String localidad) {
+		this.calle = calle;
+		this.numero = numero;
+		this.codigoPostal = codigoPostal;
+		this.departamento = departamento;
+		this.piso = piso;
+		this.localidad = localidad;
+	}
 }
