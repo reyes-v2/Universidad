@@ -1,7 +1,6 @@
 package dev.rmpedro.apirest.services;
 
-import dev.rmpedro.apirest.entities.Aula;
-import dev.rmpedro.apirest.entities.Carrera;
+import dev.rmpedro.apirest.models.entities.Aula;
 import dev.rmpedro.apirest.enums.Pizarron;
 
 public interface AulaDAO extends GenericoDAO<Aula>{

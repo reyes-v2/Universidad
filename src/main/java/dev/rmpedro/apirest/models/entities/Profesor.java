@@ -1,8 +1,9 @@
-package dev.rmpedro.apirest.entities;
+package dev.rmpedro.apirest.models.entities;
 
 import java.math.BigDecimal;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.Entity;
@@ -26,6 +27,7 @@ public class Profesor extends Persona{
             joinColumns = @JoinColumn(name = "profesor_id"),
             inverseJoinColumns = @JoinColumn(name = "carera_id")
     )
+    @JsonIgnoreProperties({"hibernateLazyInitializer","profesores"})
 	private Set<Carrera> carreras;
 	
 
@@ -36,7 +38,9 @@ public class Profesor extends Persona{
 		super(id, nombre, apellido, dni, direccion);
 		this.sueldo=sueldo;
 	}
-	
+
+
+
     @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder();
@@ -45,7 +49,6 @@ public class Profesor extends Persona{
         sb.append('}');
         return sb.toString();
     }
-	
-	
+
 
 }

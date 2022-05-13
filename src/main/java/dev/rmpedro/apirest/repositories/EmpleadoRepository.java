@@ -1,6 +1,6 @@
 package dev.rmpedro.apirest.repositories;
 
-import dev.rmpedro.apirest.entities.Persona;
+import dev.rmpedro.apirest.models.entities.Persona;
 import dev.rmpedro.apirest.enums.TipoEmpleado;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

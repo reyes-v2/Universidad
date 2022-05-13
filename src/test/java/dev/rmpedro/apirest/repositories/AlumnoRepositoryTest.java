@@ -3,9 +3,9 @@ package dev.rmpedro.apirest.repositories;
 
 import dev.rmpedro.apirest.datos.AlumnoDatosDummy;
 import dev.rmpedro.apirest.datos.CarreraDatosDummy;
-import dev.rmpedro.apirest.entities.Alumno;
-import dev.rmpedro.apirest.entities.Carrera;
-import dev.rmpedro.apirest.entities.Persona;
+import dev.rmpedro.apirest.models.entities.Alumno;
+import dev.rmpedro.apirest.models.entities.Carrera;
+import dev.rmpedro.apirest.models.entities.Persona;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

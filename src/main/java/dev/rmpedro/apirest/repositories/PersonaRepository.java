@@ -1,6 +1,6 @@
 package dev.rmpedro.apirest.repositories;
 
-import dev.rmpedro.apirest.entities.Persona;
+import dev.rmpedro.apirest.models.entities.Persona;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.NoRepositoryBean;

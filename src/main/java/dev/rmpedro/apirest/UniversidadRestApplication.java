@@ -1,17 +1,7 @@
 package dev.rmpedro.apirest;
 
-import dev.rmpedro.apirest.entities.Alumno;
-import dev.rmpedro.apirest.entities.Direccion;
-import dev.rmpedro.apirest.entities.Persona;
-import dev.rmpedro.apirest.services.AlumnoDAO;
-import dev.rmpedro.apirest.services.ProfesorDAO;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Bean;
-
-import java.util.List;
 
 @SpringBootApplication
 public class UniversidadRestApplication {

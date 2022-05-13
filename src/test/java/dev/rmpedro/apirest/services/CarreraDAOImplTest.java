@@ -1,20 +1,15 @@
 package dev.rmpedro.apirest.services;
 
 import dev.rmpedro.apirest.datos.CarreraDatosDummy;
-import dev.rmpedro.apirest.datos.ProfesorDatosDummy;
-import dev.rmpedro.apirest.entities.Carrera;
-import dev.rmpedro.apirest.entities.Profesor;
+import dev.rmpedro.apirest.models.entities.Carrera;
 import dev.rmpedro.apirest.repositories.CarreraRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 import static dev.rmpedro.apirest.datos.CarreraDatosDummy.*;
-import static dev.rmpedro.apirest.datos.ProfesorDatosDummy.profesor01;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;

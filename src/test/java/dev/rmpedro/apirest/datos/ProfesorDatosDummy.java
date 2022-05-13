@@ -1,8 +1,8 @@
 package dev.rmpedro.apirest.datos;
 
 
-import dev.rmpedro.apirest.entities.Direccion;
-import dev.rmpedro.apirest.entities.Profesor;
+import dev.rmpedro.apirest.models.entities.Direccion;
+import dev.rmpedro.apirest.models.entities.Profesor;
 
 import java.math.BigDecimal;
 

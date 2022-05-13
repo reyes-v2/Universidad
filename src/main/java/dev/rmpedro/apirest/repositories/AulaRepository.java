@@ -1,6 +1,6 @@
 package dev.rmpedro.apirest.repositories;
 
-import dev.rmpedro.apirest.entities.Aula;
+import dev.rmpedro.apirest.models.entities.Aula;
 import dev.rmpedro.apirest.enums.Pizarron;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

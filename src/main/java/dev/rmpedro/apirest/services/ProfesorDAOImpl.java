@@ -1,6 +1,6 @@
 package dev.rmpedro.apirest.services;
 
-import dev.rmpedro.apirest.entities.Persona;
+import dev.rmpedro.apirest.models.entities.Persona;
 import dev.rmpedro.apirest.repositories.PersonaRepository;
 import dev.rmpedro.apirest.repositories.ProfesorRepository;
 import org.springframework.beans.factory.annotation.Autowired;

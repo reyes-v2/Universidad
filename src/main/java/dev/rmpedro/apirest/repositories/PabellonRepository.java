@@ -1,6 +1,6 @@
 package dev.rmpedro.apirest.repositories;
 
-import dev.rmpedro.apirest.entities.Pabellon;
+import dev.rmpedro.apirest.models.entities.Pabellon;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

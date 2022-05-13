@@ -1,10 +1,8 @@
 package dev.rmpedro.apirest.services;
 
-import dev.rmpedro.apirest.entities.Pabellon;
+import dev.rmpedro.apirest.models.entities.Pabellon;
 import dev.rmpedro.apirest.repositories.PabellonRepository;
 import org.springframework.stereotype.Service;
-
-import java.io.Serial;
 
 
 @Service

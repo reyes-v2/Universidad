@@ -1,20 +1,9 @@
 package dev.rmpedro.apirest.utils;
 
-import dev.rmpedro.apirest.entities.Aula;
-import dev.rmpedro.apirest.entities.Pabellon;
-import dev.rmpedro.apirest.entities.Persona;
-import dev.rmpedro.apirest.enums.Pizarron;
-import dev.rmpedro.apirest.enums.TipoEmpleado;
 import dev.rmpedro.apirest.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Component;
-
-import dev.rmpedro.apirest.entities.Carrera;
-import dev.rmpedro.apirest.repositories.CarreraRepository;
-
-import java.util.Optional;
 
 @Component
 public class comandos implements CommandLineRunner {
@@ -65,9 +54,9 @@ public class comandos implements CommandLineRunner {
 		/*Iterable<Aula> aulas = aulaDAO.findAulaByPabellonNombre("Pabellon Arreola");
 		aulas.forEach(System.out::println);*/
 
-        Iterable<Pabellon> pabellon = pabellonDAO.findPabellonsByDireccionLocalidad("Cd Guzman");
+     /*   Iterable<Pabellon> pabellon = pabellonDAO.findPabellonsByDireccionLocalidad("Cd Guzman");
         pabellon.forEach(System.out::println);
-
+*/
 
 
     }

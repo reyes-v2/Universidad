@@ -1,12 +1,11 @@
-package dev.rmpedro.apirest.entities;
+package dev.rmpedro.apirest.models.entities;
 
 import java.math.BigDecimal;
-import java.util.Date;
 
 import dev.rmpedro.apirest.enums.TipoEmpleado;
 import lombok.*;
 import javax.persistence.*;
-@AllArgsConstructor
+//@AllArgsConstructor
 @Setter
 @Getter
 @NoArgsConstructor

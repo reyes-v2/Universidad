@@ -1,4 +1,4 @@
-package dev.rmpedro.apirest.entities;
+package dev.rmpedro.apirest.models.entities;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -10,7 +10,7 @@ import javax.persistence.*;
 
 @Setter
 @Getter
-@NoArgsConstructor
+//@NoArgsConstructor
 @ToString
 @Embeddable
 public class Direccion implements Serializable{
@@ -32,5 +32,8 @@ public class Direccion implements Serializable{
 		this.departamento = departamento;
 		this.piso = piso;
 		this.localidad = localidad;
+	}
+
+	public Direccion() {
 	}
 }

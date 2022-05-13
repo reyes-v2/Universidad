@@ -1,7 +1,5 @@
 package dev.rmpedro.apirest.services;
 
-import dev.rmpedro.apirest.entities.Persona;
-
 import java.util.Optional;
 
 public interface GenericoDAO <E>{

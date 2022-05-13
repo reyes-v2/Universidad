@@ -1,9 +1,8 @@
 package dev.rmpedro.apirest.repositories;
 
-import dev.rmpedro.apirest.datos.EmpleadoDatosDummy;
-import dev.rmpedro.apirest.entities.Alumno;
-import dev.rmpedro.apirest.entities.Empleado;
-import dev.rmpedro.apirest.entities.Persona;
+import dev.rmpedro.apirest.models.entities.Alumno;
+import dev.rmpedro.apirest.models.entities.Empleado;
+import dev.rmpedro.apirest.models.entities.Persona;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,6 @@ import static dev.rmpedro.apirest.datos.EmpleadoDatosDummy.*;
 import static dev.rmpedro.apirest.datos.ProfesorDatosDummy.*;
 import static dev.rmpedro.apirest.datos.AlumnoDatosDummy.*;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 class PersonaRepositoryTest {

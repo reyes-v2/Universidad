@@ -1,8 +1,8 @@
 package dev.rmpedro.apirest.datos;
 
 
-import dev.rmpedro.apirest.entities.Alumno;
-import dev.rmpedro.apirest.entities.Direccion;
+import dev.rmpedro.apirest.models.entities.Alumno;
+import dev.rmpedro.apirest.models.entities.Direccion;
 
 public class AlumnoDatosDummy {
 

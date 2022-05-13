@@ -1,12 +1,13 @@
-package dev.rmpedro.apirest.entities;
+package dev.rmpedro.apirest.models.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serial;
 
-@AllArgsConstructor
-@NoArgsConstructor
+//@AllArgsConstructor
+//@NoArgsConstructor
 @Entity
 @Getter
 @Setter
@@ -17,6 +18,7 @@ public class Alumno extends Persona{
 
 	@ManyToOne(optional = true, fetch = FetchType.LAZY, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@JoinColumn(name = "carrera_id", foreignKey = @ForeignKey(name = "FK_CARRERA_ID"))
+	@JsonIgnoreProperties({"hibernateLazyInitializer","alumnos"})
 	private Carrera carrera;
 
 
@@ -27,8 +29,12 @@ public class Alumno extends Persona{
 	}
 	@Serial
 	private static final long serialVersionUID = 97655354333990378L;
-	
-	  @Override
+
+	public Alumno() {
+
+	}
+
+	@Override
 	    public String toString() {
 	        final StringBuilder sb = new StringBuilder(super.toString());
 	        sb.append("carrera=").append(carrera);

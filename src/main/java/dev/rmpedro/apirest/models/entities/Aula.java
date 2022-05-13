@@ -1,4 +1,4 @@
-package dev.rmpedro.apirest.entities;
+package dev.rmpedro.apirest.models.entities;
 
 import java.io.Serial;
 import java.io.Serializable;

@@ -1,4 +1,4 @@
-package dev.rmpedro.apirest.entities;
+package dev.rmpedro.apirest.models.entities;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -6,14 +6,18 @@ import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
-//@AllArgsConstructor
+@AllArgsConstructor
 @Setter
 @Getter
-//@NoArgsConstructor
+@NoArgsConstructor
 @Entity
 //@Table(name = "carreras", schema = "universidad")
 @Table(name = "carreras")
@@ -23,10 +27,13 @@ public class Carrera implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	@Column(name = "nombre",nullable = false, unique = true, length = 80)
+	@NotNull(message = "No puede ser null")
+	@NotEmpty(message = "No puede ser vacio")
 	private String nombre;
-
+	@Positive(message = "Debe ser mayor que 0")
 	@Column(name = "cantidad_materias")
 	private Integer cantidadMaterias;
+	@Positive(message = "Debe ser mayor que 0")
 	@Column(name = "cantidad_anios")
 	private Integer cantidadAnios;
 	@Column(name = "fecha_creacion",nullable = false)
@@ -34,11 +41,13 @@ public class Carrera implements Serializable{
 	@Column(name = "fecha_modificacion")
 	private Date fechaModificacion;
 	
-	  @OneToMany(mappedBy = "carrera", fetch = FetchType.LAZY)
+	    @OneToMany(mappedBy = "carrera", fetch = FetchType.LAZY)
+		@JsonIgnoreProperties({"carrera"})
 	    private Set<Alumno> alumnos;
 
 	    @ManyToMany(mappedBy = "carreras", fetch = FetchType.LAZY)
-	    private Set<Profesor> profesores;
+		@JsonIgnoreProperties({"carreras"})
+		private Set<Profesor> profesores;
 	
 	@Serial
 	private static final long serialVersionUID = -647494856265421437L;
@@ -52,8 +61,6 @@ public class Carrera implements Serializable{
 		this.cantidadAnios = cantidadAnios;
 	}
 
-	public Carrera() {
-	}
 
 	@Override
 	public int hashCode() {
@@ -95,12 +102,6 @@ public class Carrera implements Serializable{
 	        sb.append('}');
 	        return sb.toString();
 	    }
-	
-	
-	
-	
-	
-	
-	
+
 
 }
