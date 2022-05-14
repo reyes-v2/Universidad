@@ -23,6 +23,6 @@ public class PersonaDAOImpl extends GenericoDAOImpl<Persona, PersonaRepository> 
 
     @Override
     public Iterable<Persona> buscarPorApellido(String apellido) {
-        return buscarPorApellido(apellido);
+        return repository.buscarPorApellido(apellido);
     }
 }
