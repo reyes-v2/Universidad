@@ -16,8 +16,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,7 +38,16 @@ public class ProfesorController {
     private CarreraDAO carreraDAO;
 
     @PostMapping("/crear")
-    public ResponseEntity<?> crearProfesor(@RequestBody Persona profesor){
+    public ResponseEntity<?> crearProfesor(@Valid @RequestBody Persona profesor, BindingResult result){
+        Map<String,Object> validaciones = new HashMap<String,Object>();
+        if(result.hasErrors()){
+            List<String> listaErrores = result.getFieldErrors()
+                    .stream()
+                    .map(errores -> "Campo :'" + errores.getField() + "'" + errores.getDefaultMessage())
+                    .collect(Collectors.toList());
+            validaciones.put("Lista errores", listaErrores);
+            return new ResponseEntity<Map<String,Object>>(validaciones,HttpStatus.BAD_REQUEST);
+        }
         Persona profesorGuardado = profesorDAO.guardar(profesor);
         return new ResponseEntity<Persona>(profesorGuardado, HttpStatus.CREATED);
     }
