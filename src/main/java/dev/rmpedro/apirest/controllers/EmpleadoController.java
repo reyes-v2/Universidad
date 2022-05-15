@@ -1,8 +1,15 @@
 package dev.rmpedro.apirest.controllers;
 
+import dev.rmpedro.apirest.exceptions.BadRequestException;
 import dev.rmpedro.apirest.exceptions.NotFoundException;
+import dev.rmpedro.apirest.mapper.AlumnoMapper;
+import dev.rmpedro.apirest.mapper.EmpleadoMapper;
+import dev.rmpedro.apirest.models.dto.AlumnoDTO;
+import dev.rmpedro.apirest.models.dto.EmpleadoDTO;
+import dev.rmpedro.apirest.models.entities.Alumno;
 import dev.rmpedro.apirest.models.entities.Empleado;
 import dev.rmpedro.apirest.models.entities.Persona;
+import dev.rmpedro.apirest.services.AlumnoDAO;
 import dev.rmpedro.apirest.services.EmpleadoDAO;
 import dev.rmpedro.apirest.services.PersonaDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/empleado")
@@ -69,6 +77,20 @@ public class EmpleadoController {
         empleadoDAO.eliminarPorId(empleadoId);
         respuesta.put("OK","Empleado ID:" + empleadoId + "eliminado exitosamente");
         return new ResponseEntity<Map<String,Object>>(respuesta,HttpStatus.NO_CONTENT);
+
+    }
+    @GetMapping("/lista/dto")
+    public ResponseEntity<?> obtenerEmpleadosDto(){
+        List<Empleado> empleados = (List<Empleado>) ((EmpleadoDAO)empleadoDAO).buscarTodosEmpleado();
+        if(empleados.isEmpty())
+            throw new BadRequestException("No existen empleados");
+        List<EmpleadoDTO> empleadosDto = empleados.
+                stream()
+                .map(EmpleadoMapper::mapperEmpleado)
+                .collect(Collectors.toList());
+
+        return new ResponseEntity<List<EmpleadoDTO>>(empleadosDto,HttpStatus.OK);
+
 
     }
 

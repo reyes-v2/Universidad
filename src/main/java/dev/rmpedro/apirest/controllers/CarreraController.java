@@ -89,7 +89,7 @@ public class CarreraController {
             throw new BadRequestException("No existen carreras");
         List<CarreraDTO> carrerasDto = carreras.
                 stream()
-                .map(CarreraMapper::mapCarrera)
+                .map(CarreraMapper::mapperCarrera)
                 .collect(Collectors.toList());
 
         return new ResponseEntity<List<CarreraDTO>>(carrerasDto,HttpStatus.OK);

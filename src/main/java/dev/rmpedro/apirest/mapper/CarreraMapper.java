@@ -7,7 +7,7 @@ import lombok.Setter;
 
 public class CarreraMapper {
 
-    public static CarreraDTO mapCarrera(Carrera carrera){
+    public static CarreraDTO mapperCarrera(Carrera carrera){
         CarreraDTO carreraDTO = new CarreraDTO();
         carreraDTO.setId(carrera.getId());
         carreraDTO.setNombre(carrera.getNombre());

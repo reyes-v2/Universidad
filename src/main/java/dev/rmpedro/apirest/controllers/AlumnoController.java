@@ -1,5 +1,10 @@
 package dev.rmpedro.apirest.controllers;
 
+import dev.rmpedro.apirest.exceptions.BadRequestException;
+import dev.rmpedro.apirest.mapper.AlumnoMapper;
+import dev.rmpedro.apirest.mapper.CarreraMapper;
+import dev.rmpedro.apirest.models.dto.AlumnoDTO;
+import dev.rmpedro.apirest.models.dto.CarreraDTO;
 import dev.rmpedro.apirest.models.entities.Alumno;
 import dev.rmpedro.apirest.models.entities.Carrera;
 import dev.rmpedro.apirest.models.entities.Persona;
@@ -17,6 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/alumno")
@@ -88,6 +94,21 @@ public class AlumnoController {
         }
         Persona alumno = ((AlumnoDAO)alumnoDAO).asignarCarrera(oAlumno.get(),oCarrera.get());
         return new ResponseEntity<Persona>(alumno,HttpStatus.OK);
+    }
+
+    @GetMapping("/lista/dto")
+    public ResponseEntity<?> obtenerAlumnosDto(){
+        List<Alumno> alumnos = (List<Alumno>) ((AlumnoDAO)alumnoDAO).buscarTodosAlumnos();
+        if(alumnos.isEmpty())
+            throw new BadRequestException("No existen alumnos");
+        List<AlumnoDTO> alumnosDto = alumnos.
+                stream()
+                .map(AlumnoMapper::mapperAlumno)
+                .collect(Collectors.toList());
+
+        return new ResponseEntity<List<AlumnoDTO>>(alumnosDto,HttpStatus.OK);
+
+
     }
 
 }

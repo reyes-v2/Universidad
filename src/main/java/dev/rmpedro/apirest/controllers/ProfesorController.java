@@ -1,10 +1,13 @@
 package dev.rmpedro.apirest.controllers;
 
 
+import dev.rmpedro.apirest.exceptions.BadRequestException;
 import dev.rmpedro.apirest.exceptions.NotFoundException;
-import dev.rmpedro.apirest.models.entities.Carrera;
-import dev.rmpedro.apirest.models.entities.Persona;
-import dev.rmpedro.apirest.models.entities.Profesor;
+import dev.rmpedro.apirest.mapper.AlumnoMapper;
+import dev.rmpedro.apirest.mapper.ProfesorMapper;
+import dev.rmpedro.apirest.models.dto.AlumnoDTO;
+import dev.rmpedro.apirest.models.dto.ProfesorDTO;
+import dev.rmpedro.apirest.models.entities.*;
 import dev.rmpedro.apirest.services.AlumnoDAO;
 import dev.rmpedro.apirest.services.CarreraDAO;
 import dev.rmpedro.apirest.services.PersonaDAO;
@@ -19,6 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/profesor")
@@ -76,6 +80,20 @@ public class ProfesorController {
         profesorDAO.eliminarPorId(profesorId);
         respuesta.put("OK","Profesor ID:" + profesorId + "eliminado exitosamente");
         return new ResponseEntity<Map<String,Object>>(respuesta,HttpStatus.NO_CONTENT);
+
+    }
+    @GetMapping("/lista/dto")
+    public ResponseEntity<?> obtenerProfesoresDto(){
+        List<Profesor> profesores = (List<Profesor>) ((ProfesorDAO)profesorDAO).buscarTodosProfesor();
+        if(profesores.isEmpty())
+            throw new BadRequestException("No existen profesores");
+        List<ProfesorDTO> profesoresDto = profesores.
+                stream()
+                .map(ProfesorMapper::mapperProfesor)
+                .collect(Collectors.toList());
+
+        return new ResponseEntity<List<ProfesorDTO>>(profesoresDto,HttpStatus.OK);
+
 
     }
 
