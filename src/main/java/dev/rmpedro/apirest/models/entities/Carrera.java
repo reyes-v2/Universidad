@@ -19,8 +19,8 @@ import javax.validation.constraints.Positive;
 @Getter
 @NoArgsConstructor
 @Entity
-//@Table(name = "carreras", schema = "universidad")
-@Table(name = "carreras")
+@Table(name = "carreras", schema = "universidad")
+//@Table(name = "carreras")
 public class Carrera implements Serializable{
 
 	@Id

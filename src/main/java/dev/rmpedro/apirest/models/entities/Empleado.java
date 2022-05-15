@@ -5,17 +5,22 @@ import java.math.BigDecimal;
 import dev.rmpedro.apirest.enums.TipoEmpleado;
 import lombok.*;
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+
 //@AllArgsConstructor
 @Setter
 @Getter
 @NoArgsConstructor
 @Entity
-//@Table(name = "empleados",schema="universidad")
-@Table(name = "empleados")
+@Table(name = "empleados",schema="universidad")
+//@Table(name = "empleados")
 @PrimaryKeyJoinColumn(name="persona_id")
 public class Empleado extends Persona{
 	
 	@Column(name="sueldo")
+	@Positive(message = "No puede ser menor que 0")
 	private BigDecimal sueldo;
 	@Column(name="tipo_empleado")
 	@Enumerated(EnumType.STRING)

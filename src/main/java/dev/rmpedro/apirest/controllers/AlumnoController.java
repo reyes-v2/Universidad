@@ -1,5 +1,6 @@
 package dev.rmpedro.apirest.controllers;
 
+import dev.rmpedro.apirest.models.entities.Alumno;
 import dev.rmpedro.apirest.models.entities.Carrera;
 import dev.rmpedro.apirest.models.entities.Persona;
 import dev.rmpedro.apirest.exceptions.NotFoundException;
@@ -37,16 +38,16 @@ public class AlumnoController {
     }
     @GetMapping("/lista")
     public ResponseEntity<?> buscarTodos(){
-        List<Persona> alumnos = (List<Persona>) alumnoDAO.buscarTodos();
+        List<Alumno> alumnos = (List<Alumno>) ((AlumnoDAO)alumnoDAO).buscarTodosAlumnos();
         if(alumnos.isEmpty()){
             throw new NotFoundException("No existen alumnos");
 
         }
-        return new ResponseEntity<List<Persona>>(alumnos,HttpStatus.OK);
+        return new ResponseEntity<List<Alumno>>(alumnos,HttpStatus.OK);
     }
     @GetMapping("/buscar/id/{alumnoId}")
     public ResponseEntity<?> buscarAlumnoPorId(@PathVariable Integer alumnoId){
-        Optional<Persona> oAlumno = alumnoDAO.buscarPorId(alumnoId);
+        Optional<Alumno> oAlumno = ((AlumnoDAO)alumnoDAO).buscarAlumnoPorId(alumnoId);
         if(!oAlumno.isPresent()){
             throw new NotFoundException("No existe el alumno con el ID " + alumnoId);
         }
@@ -55,7 +56,7 @@ public class AlumnoController {
     }
     @PutMapping("/upd/alumnoId/{alumnoId}")
     public ResponseEntity<?> actualizarAlummno(@PathVariable Integer alumnoId,@RequestBody Persona alumno){
-        Optional<Persona> actualizarAlumno = alumnoDAO.buscarPorId(alumnoId);
+        Optional<Alumno> actualizarAlumno = ((AlumnoDAO)alumnoDAO).buscarAlumnoPorId(alumnoId);
         if(!actualizarAlumno.isPresent()){
             throw new NotFoundException("No existe el alumno con el ID " + alumnoId);
 
@@ -66,7 +67,7 @@ public class AlumnoController {
     @DeleteMapping("/del/alumnoId/{alumnoId}")
     public ResponseEntity<?> eliminarAlumno(@PathVariable Integer alumnoId){
         Map<String,Object> respuesta = new HashMap<String,Object>();
-        Optional<Persona> oAlumno = alumnoDAO.buscarPorId(alumnoId);
+        Optional<Alumno> oAlumno = ((AlumnoDAO)alumnoDAO).buscarAlumnoPorId(alumnoId);
         if(!oAlumno.isPresent()){
             throw new NotFoundException("No existe el alumno con el ID " + alumnoId);
         }
@@ -77,7 +78,7 @@ public class AlumnoController {
     }
     @PutMapping("/alumnoId/{alumnoId}/carreraId/{carreraId}")
     public ResponseEntity<?> asignarCarrera(@PathVariable Integer alumnoId,@PathVariable Integer carreraId){
-        Optional<Persona> oAlumno = alumnoDAO.buscarPorId(alumnoId);
+        Optional<Alumno> oAlumno = ((AlumnoDAO)alumnoDAO).buscarAlumnoPorId(alumnoId);
         if(!oAlumno.isPresent()){
             throw new NotFoundException("No existe el alumno con el ID " + alumnoId);
         }

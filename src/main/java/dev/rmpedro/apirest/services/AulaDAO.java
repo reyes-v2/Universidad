@@ -8,6 +8,7 @@ public interface AulaDAO extends GenericoDAO<Aula>{
     Iterable<Aula> findAulaByPizarronEquals(Pizarron pizarron);
     Iterable<Aula> findAulaByPabellonNombre(String nombrePabellon);
     Iterable<Aula> findAulaByNumeroAulaEquals(Integer numeroAula);
+    Aula actualizar(Aula aulaEncontrada, Aula aulaNueva);
 
 
 

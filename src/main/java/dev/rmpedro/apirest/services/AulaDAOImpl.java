@@ -5,6 +5,8 @@ import dev.rmpedro.apirest.enums.Pizarron;
 import dev.rmpedro.apirest.repositories.AulaRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+
 @Service
 public class AulaDAOImpl extends GenericoDAOImpl<Aula, AulaRepository> implements AulaDAO{
 
@@ -27,6 +29,21 @@ public class AulaDAOImpl extends GenericoDAOImpl<Aula, AulaRepository> implement
 	@Override
 	public Iterable<Aula> findAulaByNumeroAulaEquals(Integer numeroAula) {
 		return repository.findAulaByNumeroAulaEquals(numeroAula);
+	}
+
+	@Override
+	public Aula actualizar(Aula aulaEncontrada, Aula aulaNueva) {
+		Aula aulaActualizada = null;
+		aulaEncontrada.setNumeroAula(aulaNueva.getNumeroAula());
+		aulaEncontrada.setCantidadPupitres(aulaNueva.getCantidadPupitres());
+		aulaActualizada = aulaEncontrada;
+		aulaActualizada.setFechaModificacion(new Date());
+
+
+
+		return aulaActualizada;
+
+
 	}
 
 

@@ -9,6 +9,9 @@ import dev.rmpedro.apirest.enums.Pizarron;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 @AllArgsConstructor
 @Setter
@@ -16,18 +19,21 @@ import javax.persistence.*;
 @NoArgsConstructor
 @ToString
 @Entity
-//@Table(name="aulas", schema = "universidad")
-@Table(name="aulas")
+@Table(name="aulas", schema = "universidad")
+//@Table(name="aulas")
 public class Aula implements Serializable{
 	
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
+	@Positive(message = "Debe ser mayor que cero")
 	@Column(name = "numero_aula",nullable = false)
 	private Integer numeroAula;
-
+	@NotNull(message = "No puede ser null")
+	@NotEmpty(message = "No puede ser vacio")
 	private String medidas;
+	@Positive(message = "Debe ser mayor que cero")
 	@Column(name = "cantidad_pupitres")
 	private Integer cantidadPupitres;
 

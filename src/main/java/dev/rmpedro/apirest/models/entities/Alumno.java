@@ -11,8 +11,8 @@ import java.io.Serial;
 @Entity
 @Getter
 @Setter
-//@Table(name="alumnos",schema="universidad")
-@Table(name="alumnos")
+@Table(name="alumnos",schema="universidad")
+//@Table(name="alumnos")
 @PrimaryKeyJoinColumn(name = "persona_id")
 public class Alumno extends Persona{
 

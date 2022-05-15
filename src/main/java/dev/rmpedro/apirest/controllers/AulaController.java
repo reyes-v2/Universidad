@@ -1,0 +1,77 @@
+package dev.rmpedro.apirest.controllers;
+
+import dev.rmpedro.apirest.exceptions.NotFoundException;
+import dev.rmpedro.apirest.models.entities.Aula;
+import dev.rmpedro.apirest.services.AulaDAO;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
+
+@RestController
+@RequestMapping("/aula")
+public class AulaController {
+
+    @Autowired
+    private AulaDAO aulaDAO;
+
+    @PostMapping("/crear")
+    public ResponseEntity<?> crear(@RequestBody Aula aula){
+        Aula nuevaAula = aulaDAO.guardar(aula);
+        return new ResponseEntity<Aula>(aula, HttpStatus.CREATED);
+    }
+
+    @GetMapping("/listar")
+    public ResponseEntity<?> buscarTodos(){
+        List<Aula> aulas = (List<Aula>) aulaDAO.buscarTodos();
+        if(aulas.isEmpty()){
+            throw new NotFoundException("No hay aulas que mostrar");
+        }
+        return new ResponseEntity<List<Aula>>(aulas,HttpStatus.OK);
+
+    }
+
+    @GetMapping("/buscar/aulaId/{aulaId}")
+    public ResponseEntity<?> buscarAula(@PathVariable Integer aulaId){
+        Optional<Aula> aula = aulaDAO.buscarPorId(aulaId);
+        if(!aula.isPresent()){
+            throw new NotFoundException("No existe el aula con ID " + aulaId);
+        }
+        return new ResponseEntity<Aula>(aula.get(),HttpStatus.OK);
+
+    }
+
+    @PutMapping("/upd/aulaId/{aulaId}")
+    public ResponseEntity<?> actualizarAula(@PathVariable Integer aulaId, @RequestBody Aula aula){
+        Optional<Aula> aulaEncontrada = aulaDAO.buscarPorId(aulaId);
+        if(!aulaEncontrada.isPresent()){
+            throw new NotFoundException("No existe el aula con ID " + aulaId);
+        }
+        Aula aulaActualizada = aulaDAO.actualizar(aulaEncontrada.get(),aula);
+
+        return new ResponseEntity<Aula>(aulaActualizada,HttpStatus.CREATED);
+
+    }
+
+    @DeleteMapping("/del/aulaId/{aulaId}")
+    public ResponseEntity<?> eliminarAula(@PathVariable Integer aulaId){
+
+        Optional<Aula> aulaEncontrada = aulaDAO.buscarPorId(aulaId);
+        if(!aulaEncontrada.isPresent()){
+            throw new NotFoundException("No existe el aula con ID " + aulaId);
+        }
+        aulaDAO.eliminarPorId(aulaId);
+        Map<String,String> respuesta = new HashMap<String,String>();
+        respuesta.put("OK","Aula ID:" + aulaId + "eliminado exitosamente");
+        return new ResponseEntity<Map<String,String>>(respuesta,HttpStatus.NO_CONTENT);
+
+    }
+
+
+
+}

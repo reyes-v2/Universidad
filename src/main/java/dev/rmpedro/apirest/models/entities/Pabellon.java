@@ -7,14 +7,17 @@ import java.util.Set;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 @AllArgsConstructor
 @Setter
 @Getter
 @NoArgsConstructor
 @Entity
-//@Table(name = "pabellones", schema = "universidad")
-@Table(name = "pabellones")
+@Table(name = "pabellones", schema = "universidad")
+//@Table(name = "pabellones")
 public class Pabellon implements Serializable {
 
 	@Id
@@ -22,7 +25,10 @@ public class Pabellon implements Serializable {
 	private Integer id;
 	
 	@Column(name = "metros_cuadrados")
+	@Positive(message = "No debe ser menor que 0")
 	private Double metrosCuadrados;
+	@NotEmpty(message = "No debe ser vacio")
+	@NotNull(message = "No debe ser null")
 	private String nombre;
 	@Column(name = "fecha_creacion")
 	private Date fechaCreacion;

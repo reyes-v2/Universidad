@@ -1,0 +1,803 @@
+{
+	"info": {
+		"_postman_id": "6590419f-6f18-49e3-b81b-fcb5da818d51",
+		"name": "Api Universidad",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Carrera",
+			"item": [
+				{
+					"name": "Buscar todas las carreras",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/carrera/lista/carreras",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carrera",
+								"lista",
+								"carreras"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "buscar carrera por id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/carrera/id/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carrera",
+								"id",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "crear carrera",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\" : \"Licenciatura en Veterinaria\",\r\n    \"cantidadMaterias\" : -48,\r\n    \"cantidadAnios\":4\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/carrera/crear",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carrera",
+								"crear"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update carrera",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \r\n    \"cantidadMaterias\" : 56,\r\n    \"cantidadAnios\":1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/carrera/upd/carreraId/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carrera",
+								"upd",
+								"carreraId",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete carrera",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/carrera/del/carreraId/",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carrera",
+								"del",
+								"carreraId",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "carreras dto",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/carrera/carreras/dto",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"carrera",
+								"carreras",
+								"dto"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "alumnos",
+			"item": [
+				{
+					"name": "lista Alumno",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/alumno/lista",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"alumno",
+								"lista"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "busca alumno id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/alumno/buscar/id/3",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"alumno",
+								"buscar",
+								"id",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "crear alumno",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tipo\":\"alumno\",\r\n    \"nombre\":\"Yenny\",\r\n    \"apellido\":\"Gutierrez\",\r\n    \"direccion\":{\r\n        \"calle\":\"Independencia\",\r\n        \"numero\":109\r\n    },\r\n    \"dni\":\"12324\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/alumno/crear",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"alumno",
+								"crear"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update alumno",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tipo\":\"alumno\",\r\n    \"nombre\":\"Yenni Itzel\",\r\n    \"apellido\":\"Gutierrez\",\r\n    \"dni\":\"12324\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/alumno/upd/alumnoId/5",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"alumno",
+								"upd",
+								"alumnoId",
+								"5"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Asignar carrera",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/alumno/alumnoId/1/carreraId/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"alumno",
+								"alumnoId",
+								"1",
+								"carreraId",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "eliminar alumno",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/alumno/del/alumnoId/3",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"alumno",
+								"del",
+								"alumnoId",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Profesor",
+			"item": [
+				{
+					"name": "profesor lista",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/profesor/lista",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"profesor",
+								"lista"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "busca profesor id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/profesor/buscar/id/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"profesor",
+								"buscar",
+								"id",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "crear profesor",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tipo\":\"profesor\",\r\n    \"nombre\":\"David\",\r\n    \"apellido\":\"Segura\",\r\n    \"dni\":\"098765\",\r\n    \"sueldo\":30000\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/profesor/crear",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"profesor",
+								"crear"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update profesor",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tipo\":\"profesor\",\r\n    \"nombre\":\"David Nelson\",\r\n    \"apellido\":\"Segura\",\r\n    \"direccion\":{\r\n        \"calle\":\"Independencia\",\r\n        \"numero\":109\r\n    }\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/profesor/upd/profesorId/6",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"profesor",
+								"upd",
+								"profesorId",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "eliminar profesor",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/profesor/del/profesorId/3",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"profesor",
+								"del",
+								"profesorId",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Empleado",
+			"item": [
+				{
+					"name": "empleado lista",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/empleado/lista",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"empleado",
+								"lista"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "busca empleado id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/empleado/buscar/id/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"empleado",
+								"buscar",
+								"id",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "crear empleado",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tipo\":\"empleado\",\r\n    \"nombre\":\"Hugo\",\r\n    \"apellido\":\"Gonzalez\",\r\n    \"dni\":\"098769\",\r\n    \"sueldo\":30000,\r\n    \"direccion\":{\r\n        \"calle\":\"Independencia\",\r\n        \"numero\":109\r\n    },\r\n    \"tipoEmpleado\":\"ADMINISTRATIVO\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/empleado/crear",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"empleado",
+								"crear"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update empleado",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"tipo\":\"empleado\",\r\n    \"nombre\":\"Hugo Luis\",\r\n    \"apellido\":\"Gonzalez\",\r\n    \"direccion\":{\r\n        \"calle\":\"Independencia\",\r\n        \"numero\":109\r\n    },\r\n    \"sueldo\":60000\r\n\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/empleado/upd/empleadoId/7",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"empleado",
+								"upd",
+								"empleadoId",
+								"7"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "eliminar empleado",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/empleado/del/empleadoId/7",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"empleado",
+								"del",
+								"empleadoId",
+								"7"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Pabellon",
+			"item": [
+				{
+					"name": "crear pabellon",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"metrosCuadrados\":4000.00,\r\n    \"nombre\" : \"Vangoh\",\r\n    \"direccion\":{\r\n       \"calle\" :\"Random street\",\r\n            \"numero\":    \"504\",\r\n               \"codigoPostal\": \"74425\",\r\n               \"piso\": \"2\",\r\n                \"localidad\":\"Tehuacán\"\r\n    }\r\n\r\n  \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/pabellon/crear",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pabellon",
+								"crear"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "buscar pabellones",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/pabellon/lista",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pabellon",
+								"lista"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actualizar pabellon",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\":\"Tio BOB\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/pabellon/upd/pabellonId/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pabellon",
+								"upd",
+								"pabellonId",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/pabellon/del/pabellonId/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pabellon",
+								"del",
+								"pabellonId",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Aula",
+			"item": [
+				{
+					"name": "crear aula",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"numeroAula\":202,\r\n    \"medidas\":\"20x20\",\r\n    \"cantidadPupitres\":25,\r\n    \"pizarron\":\"PIZARRA_TIZA\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/aula/crear",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"aula",
+								"crear"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "listar",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"numeroAula\":202,\r\n    \"medidas\":\"20x20\",\r\n    \"cantidadPupitres\":25,\r\n    \"pizarron\":\"PIZARRA_TIZA\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/aula/listar",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"aula",
+								"listar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "buscar por id",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"numeroAula\":202,\r\n    \"medidas\":\"20x20\",\r\n    \"cantidadPupitres\":25,\r\n    \"pizarron\":\"PIZARRA_TIZA\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/aula/buscar/aulaId/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"aula",
+								"buscar",
+								"aulaId",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "actualizar",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"numeroAula\":2022,\r\n    \"cantidadPupitres\":30\r\n   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/aula/upd/aulaId/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"aula",
+								"upd",
+								"aulaId",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "eliminar",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Hola mundo Controller",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/restapi",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"restapi"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

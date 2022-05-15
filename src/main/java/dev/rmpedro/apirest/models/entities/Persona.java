@@ -16,8 +16,8 @@ import lombok.*;
 @Getter
 @NoArgsConstructor
 @Entity
-@Table(name="personas")
-//@Table(name="personas",schema = "universidad")
+//@Table(name="personas")
+@Table(name="personas",schema = "universidad")
 @Inheritance(strategy = InheritanceType.JOINED)
 @JsonTypeInfo(
 		use=JsonTypeInfo.Id.NAME,

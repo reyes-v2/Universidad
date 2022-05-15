@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 
 @Service
 public class AlumnoDAOImpl extends PersonaDAOImpl implements AlumnoDAO{
@@ -38,4 +40,15 @@ public class AlumnoDAOImpl extends PersonaDAOImpl implements AlumnoDAO{
         ((Alumno)alumno).setCarrera(carrera);
         return repository.save(alumno);
     }
+
+    @Override
+    public Iterable<Alumno> buscarTodosAlumnos() {
+        return ((AlumnoRepository)repository).buscarTodosAlumnos();
+    }
+
+    @Override
+    public Optional<Alumno> buscarAlumnoPorId(Integer id) {
+        return ((AlumnoRepository)repository).buscarAlumnoId(id);
+    }
+
 }
