@@ -292,6 +292,14 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "alumnos DTO",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
 				}
 			]
 		},
@@ -412,6 +420,26 @@
 								"del",
 								"profesorId",
 								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "profesores DTO",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/profesor/lista/dto",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"profesor",
+								"lista",
+								"dto"
 							]
 						}
 					},
@@ -540,6 +568,26 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "empleados dto",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/empleado/lista/dto",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"empleado",
+								"lista",
+								"dto"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -553,7 +601,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"metrosCuadrados\":4000.00,\r\n    \"nombre\" : \"Vangoh\",\r\n    \"direccion\":{\r\n       \"calle\" :\"Random street\",\r\n            \"numero\":    \"504\",\r\n               \"codigoPostal\": \"74425\",\r\n               \"piso\": \"2\",\r\n                \"localidad\":\"Tehuacán\"\r\n    }\r\n\r\n  \r\n}",
+							"raw": "{\r\n  \"metrosCuadrados\":-4000.00,\r\n    \"nombre\" : \"Vangoh\",\r\n    \"direccion\":{\r\n       \"calle\" :\"Random street\",\r\n            \"numero\":    \"504\",\r\n               \"codigoPostal\": \"74425\",\r\n               \"piso\": \"2\",\r\n                \"localidad\":\"Tehuacán\"\r\n    }\r\n\r\n  \r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -624,7 +672,7 @@
 					"response": []
 				},
 				{
-					"name": "New Request",
+					"name": "eliminar pabellon",
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -639,6 +687,26 @@
 								"del",
 								"pabellonId",
 								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "pabellones dto",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/pabellon/lista/dto",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"pabellon",
+								"lista",
+								"dto"
 							]
 						}
 					},
@@ -776,6 +844,26 @@
 					"request": {
 						"method": "GET",
 						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "aulas DTO",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/aula/lista/dto",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"aula",
+								"lista",
+								"dto"
+							]
+						}
 					},
 					"response": []
 				}
