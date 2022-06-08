@@ -8,6 +8,7 @@ import dev.rmpedro.apirest.models.dto.CarreraDTO;
 import dev.rmpedro.apirest.models.entities.Alumno;
 import dev.rmpedro.apirest.models.entities.Carrera;
 import dev.rmpedro.apirest.services.CarreraDAO;
+import dev.rmpedro.apirest.utils.ValidationData;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -42,10 +43,7 @@ public class CarreraController {
             @ApiResponse(responseCode = "404", description = "No hay carreras que mostrar", content = @Content)})
     @GetMapping("/lista/carreras")
     public List<Carrera> buscarTodos() {
-        List<Carrera> carreras = (List<Carrera>) carreraDAO.buscarTodos();
-        if (carreras.isEmpty())
-            throw new BadRequestException("No existen carreras");
-        return carreras;
+        return (List<Carrera>) carreraDAO.buscarTodos();
 
     }
 
@@ -58,12 +56,8 @@ public class CarreraController {
             @ApiResponse(responseCode = "400", description = "Peticion invalida el ID debe ser Integer", content = @Content)})
     @GetMapping("/id/{carreraId}")
     public Carrera buscarCarreraPorId(@PathVariable Integer carreraId) {
-        Optional<Carrera> oCarrera = carreraDAO.buscarPorId(carreraId);
-        if (!oCarrera.isPresent()) {
-            throw new BadRequestException("No existe la carrera con el ID " + carreraId);
-        }
-        return oCarrera.get();
 
+        return carreraDAO.buscarPorId(carreraId).get();
     }
 
     @Operation(summary = "Crear nueva carrera", description = "Guardar una nueva carrera en la BD")
@@ -74,18 +68,11 @@ public class CarreraController {
             @ApiResponse(responseCode = "400", description = "Peticion invalida", content = @Content)})
     @PostMapping("/crear")
     public ResponseEntity<?> guardarCarrera(@Valid @RequestBody Carrera carrera, BindingResult result) {
-        Map<String, Object> validaciones = new HashMap<String, Object>();
         if (result.hasErrors()) {
-            List<String> listaErrores = result.getFieldErrors()
-                    .stream()
-                    .map(errores -> "Campo :'" + errores.getField() + "'" + errores.getDefaultMessage())
-                    .collect(Collectors.toList());
-            validaciones.put("Lista errores", listaErrores);
-            return new ResponseEntity<>(validaciones, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(ValidationData.validarDatos(result),HttpStatus.BAD_REQUEST);
         }
         Carrera carreraGuardada = carreraDAO.guardar(carrera);
         return new ResponseEntity<>(carreraGuardada, HttpStatus.CREATED);
-
     }
 
 
@@ -98,11 +85,8 @@ public class CarreraController {
             @ApiResponse(responseCode = "400", description = "Peticion invalida, parametros no validos", content = @Content)})
     @PutMapping("/upd/carreraId/{carreraId}")
     public ResponseEntity<?> actualizarCarrera(@PathVariable Integer carreraId, @RequestBody Carrera carrera) {
-        Optional<Carrera> oCarrera = carreraDAO.buscarPorId(carreraId);
-        if (!oCarrera.isPresent()) {
-            throw new NotFoundException("No existe la carrera con el ID " + carreraId);
-        }
-        Carrera carreraActualizada = carreraDAO.actualizarCarrera(oCarrera.get(), carrera);
+
+        Carrera carreraActualizada = carreraDAO.actualizarCarrera(carreraDAO.buscarPorId(carreraId).get(), carrera);
         return new ResponseEntity<>(carreraActualizada, HttpStatus.OK);
     }
 
@@ -114,10 +98,6 @@ public class CarreraController {
     @DeleteMapping("/del/carreraId/{carreraId}")
     public ResponseEntity<?> eliminarCarrera(@PathVariable Integer carreraId) {
         Map<String, Object> respuesta = new HashMap<String, Object>();
-        Optional<Carrera> oCarrera = carreraDAO.buscarPorId(carreraId);
-        if (!oCarrera.isPresent()) {
-            throw new NotFoundException("No existe la carrera con el ID " + carreraId);
-        }
         carreraDAO.eliminarPorId(carreraId);
         respuesta.put("OK", "Carrera ID:" + carreraId + "eliminado exitosamente");
         return new ResponseEntity<>(respuesta, HttpStatus.NO_CONTENT);
@@ -132,9 +112,7 @@ public class CarreraController {
             @ApiResponse(responseCode = "404", description = "No hay carreras que mostrar", content = @Content)})
     @GetMapping("/carreras/dto")
     public ResponseEntity<?> obtenerCarrerasDto() {
-        List<Carrera> carreras = (List<Carrera>) carreraDAO.buscarTodos();
-        if (carreras.isEmpty())
-            throw new BadRequestException("No existen carreras");
+       List<Carrera> carreras = (List<Carrera>) carreraDAO.buscarTodos();
         List<CarreraDTO> carrerasDto = carreras.
                 stream()
                 .map(CarreraMapper::mapperCarrera)

@@ -1,5 +1,6 @@
 package dev.rmpedro.apirest.services;
 
+import dev.rmpedro.apirest.exceptions.NotFoundException;
 import dev.rmpedro.apirest.models.entities.Persona;
 import dev.rmpedro.apirest.models.entities.Profesor;
 import dev.rmpedro.apirest.repositories.PersonaRepository;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -36,12 +38,20 @@ public class ProfesorDAOImpl extends PersonaDAOImpl implements ProfesorDAO{
 
     @Override
     public Iterable<Profesor> buscarTodosProfesor() {
-        return ((ProfesorRepository)repository).buscarTodosProfesor();
+        Iterable<Profesor> profesores = ((ProfesorRepository)repository).buscarTodosProfesor();
+        if(((List<Profesor>)profesores).isEmpty()){
+            throw new NotFoundException("No hay profesores que mostrar");
+        }
+        return profesores;
     }
 
     @Override
     public Optional<Profesor> buscarProfesorPorId(Integer id) {
-        return ((ProfesorRepository)repository).buscarProfesorPorId(id);
+        Optional<Profesor> profesor =((ProfesorRepository)repository).buscarProfesorPorId(id);
+        if(!profesor.isPresent()){
+            throw new NotFoundException("No existe el profesor con el ID" + id);
+        }
+        return profesor;
     }
 
 

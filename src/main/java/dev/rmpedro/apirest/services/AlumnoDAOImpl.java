@@ -1,5 +1,6 @@
 package dev.rmpedro.apirest.services;
 
+import dev.rmpedro.apirest.exceptions.NotFoundException;
 import dev.rmpedro.apirest.models.entities.Alumno;
 import dev.rmpedro.apirest.models.entities.Carrera;
 import dev.rmpedro.apirest.models.entities.Persona;
@@ -9,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -43,12 +45,22 @@ public class AlumnoDAOImpl extends PersonaDAOImpl implements AlumnoDAO{
 
     @Override
     public Iterable<Alumno> buscarTodosAlumnos() {
-        return ((AlumnoRepository)repository).buscarTodosAlumnos();
+        List<Alumno> alumnos = (List<Alumno>) ((AlumnoRepository)repository).buscarTodosAlumnos();
+        if (alumnos.isEmpty()) {
+            throw new NotFoundException("No existen alumnos");
+
+        }
+
+        return alumnos;
     }
 
     @Override
     public Optional<Alumno> buscarAlumnoPorId(Integer id) {
-        return ((AlumnoRepository)repository).buscarAlumnoId(id);
+        Optional<Alumno> buscarAlumno = ((AlumnoRepository)repository).buscarAlumnoId(id);
+        if (!buscarAlumno.isPresent()) {
+            throw new NotFoundException("No existe el alumno con el ID " + id);
+        }
+        return buscarAlumno;
     }
 
 }

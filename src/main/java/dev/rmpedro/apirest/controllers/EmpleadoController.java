@@ -8,6 +8,7 @@ import dev.rmpedro.apirest.models.entities.Empleado;
 import dev.rmpedro.apirest.models.entities.Persona;
 import dev.rmpedro.apirest.services.EmpleadoDAO;
 import dev.rmpedro.apirest.services.PersonaDAO;
+import dev.rmpedro.apirest.utils.ValidationData;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -42,14 +43,9 @@ public class EmpleadoController {
             @ApiResponse(responseCode = "400", description = "Peticion invalida", content = @Content)})
     @PostMapping("/crear")
     public ResponseEntity<?> crearEmpleado(@Valid @RequestBody Persona empleado, BindingResult result) {
-        Map<String, Object> validaciones = new HashMap<String, Object>();
+
         if (result.hasErrors()) {
-            List<String> listaErrores = result.getFieldErrors()
-                    .stream()
-                    .map(errores -> "Campo :'" + errores.getField() + "'" + errores.getDefaultMessage())
-                    .collect(Collectors.toList());
-            validaciones.put("Lista errores", listaErrores);
-            return new ResponseEntity<>(validaciones, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(ValidationData.validarDatos(result), HttpStatus.BAD_REQUEST);
         }
         Persona empleadoGuardado = empleadoDAO.guardar(empleado);
         return new ResponseEntity<>(empleadoGuardado, HttpStatus.CREATED);
@@ -64,12 +60,9 @@ public class EmpleadoController {
             @ApiResponse(responseCode = "404", description = "No hay empleados que mostrar", content = @Content)})
     @GetMapping("/lista")
     public ResponseEntity<?> buscarTodos() {
-        List<Empleado> empleados = (List<Empleado>) ((EmpleadoDAO) empleadoDAO).buscarTodosEmpleado();
-        if (empleados.isEmpty()) {
-            throw new NotFoundException("No existen empleados");
 
-        }
-        return new ResponseEntity<>(empleados, HttpStatus.OK);
+        return new ResponseEntity<>(
+                (List<Empleado>) ((EmpleadoDAO) empleadoDAO).buscarTodosEmpleado(), HttpStatus.OK);
     }
 
 
@@ -82,11 +75,9 @@ public class EmpleadoController {
             @ApiResponse(responseCode = "400", description = "Peticion invalida el ID debe ser Integer", content = @Content)})
     @GetMapping("/buscar/id/{empleadoId}")
     public ResponseEntity<?> buscarEmpleadoPorId(@PathVariable Integer empleadoId) {
-        Optional<Empleado> oEmpleado = ((EmpleadoDAO) empleadoDAO).buscarEmpleadoPorId(empleadoId);
-        if (!oEmpleado.isPresent()) {
-            throw new NotFoundException("No existe el empleado con el ID " + empleadoId);
-        }
-        return new ResponseEntity<>(oEmpleado.get(), HttpStatus.OK);
+
+        return new ResponseEntity<>(
+                ((EmpleadoDAO) empleadoDAO).buscarEmpleadoPorId(empleadoId).get(), HttpStatus.OK);
 
     }
 
@@ -99,12 +90,10 @@ public class EmpleadoController {
             @ApiResponse(responseCode = "400", description = "Peticion invalida, parametros no validos", content = @Content)})
     @PutMapping("/upd/empleadoId/{empleadoId}")
     public ResponseEntity<?> empleadoProfesor(@PathVariable Integer empleadoId, @RequestBody Empleado empleado) {
-        Optional<Empleado> actualizarEmpleado = ((EmpleadoDAO) empleadoDAO).buscarEmpleadoPorId(empleadoId);
-        if (!actualizarEmpleado.isPresent()) {
-            throw new NotFoundException("No existe el empleado con el ID " + empleadoId);
 
-        }
-        Persona empleadoActualizado = ((EmpleadoDAO) empleadoDAO).actualizarEmpleado(actualizarEmpleado.get(), empleado);
+        Persona empleadoActualizado = ((EmpleadoDAO) empleadoDAO).
+                actualizarEmpleado(((EmpleadoDAO) empleadoDAO).
+                        buscarEmpleadoPorId(empleadoId).get(), empleado);
         return new ResponseEntity<>(empleadoActualizado, HttpStatus.OK);
     }
 
@@ -117,10 +106,6 @@ public class EmpleadoController {
     @DeleteMapping("/del/empleadoId/{empleadoId}")
     public ResponseEntity<?> eliminarEmpleado(@PathVariable Integer empleadoId) {
         Map<String, Object> respuesta = new HashMap<String, Object>();
-        Optional<Empleado> oEmpleado = ((EmpleadoDAO) empleadoDAO).buscarEmpleadoPorId(empleadoId);
-        if (!oEmpleado.isPresent()) {
-            throw new NotFoundException("No existe el empleado con el ID " + empleadoId);
-        }
         empleadoDAO.eliminarPorId(empleadoId);
         respuesta.put("OK", "Empleado ID:" + empleadoId + "eliminado exitosamente");
         return new ResponseEntity<>(respuesta, HttpStatus.NO_CONTENT);
@@ -137,8 +122,6 @@ public class EmpleadoController {
     @GetMapping("/lista/dto")
     public ResponseEntity<?> obtenerEmpleadosDto() {
         List<Empleado> empleados = (List<Empleado>) ((EmpleadoDAO) empleadoDAO).buscarTodosEmpleado();
-        if (empleados.isEmpty())
-            throw new BadRequestException("No existen empleados");
         List<EmpleadoDTO> empleadosDto = empleados.
                 stream()
                 .map(EmpleadoMapper::mapperEmpleado)

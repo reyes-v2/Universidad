@@ -1,5 +1,6 @@
 package dev.rmpedro.apirest.services;
 
+import dev.rmpedro.apirest.exceptions.NotFoundException;
 import dev.rmpedro.apirest.models.entities.Empleado;
 import dev.rmpedro.apirest.models.entities.Persona;
 import dev.rmpedro.apirest.enums.TipoEmpleado;
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -27,12 +29,20 @@ public class EmpleadoDAOImpl extends PersonaDAOImpl implements EmpleadoDAO{
 
     @Override
     public Iterable<Empleado> buscarTodosEmpleado() {
-        return ((EmpleadoRepository)repository).buscarTodosEmpleado();
+        Iterable<Empleado> empleados = ((EmpleadoRepository)repository).buscarTodosEmpleado();
+        if(((List<Empleado>)empleados).isEmpty()){
+            throw new NotFoundException("No hay empleados que mostrar");
+        }
+        return empleados;
     }
 
     @Override
     public Optional<Empleado> buscarEmpleadoPorId(Integer id) {
-        return((EmpleadoRepository)repository).buscarEmpleadoPorId(id);
+        Optional<Empleado> empleado = ((EmpleadoRepository)repository).buscarEmpleadoPorId(id);
+        if(!empleado.isPresent()){
+            throw new NotFoundException("No existe el empleado con el Id: " + id);
+        }
+        return empleado;
     }
 
     @Override

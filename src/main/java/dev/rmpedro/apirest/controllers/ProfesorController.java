@@ -9,6 +9,7 @@ import dev.rmpedro.apirest.models.entities.Profesor;
 import dev.rmpedro.apirest.services.CarreraDAO;
 import dev.rmpedro.apirest.services.PersonaDAO;
 import dev.rmpedro.apirest.services.ProfesorDAO;
+import dev.rmpedro.apirest.utils.ValidationData;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -27,6 +28,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
+
+import static dev.rmpedro.apirest.utils.ValidationData.validarDatos;
+
 @RestController
 @RequestMapping("/profesor")
 public class ProfesorController {
@@ -46,14 +50,9 @@ public class ProfesorController {
             @ApiResponse(responseCode = "400", description = "Peticion invalida, formato incorrecto", content = @Content)})
     @PostMapping("/crear")
     public ResponseEntity<?> crearProfesor(@Valid @RequestBody Persona profesor, BindingResult result){
-        Map<String,Object> validaciones = new HashMap<String,Object>();
+
         if(result.hasErrors()){
-            List<String> listaErrores = result.getFieldErrors()
-                    .stream()
-                    .map(errores -> "Campo :'" + errores.getField() + "'" + errores.getDefaultMessage())
-                    .collect(Collectors.toList());
-            validaciones.put("Lista errores", listaErrores);
-            return new ResponseEntity<>(validaciones, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(validarDatos(result), HttpStatus.BAD_REQUEST);
         }
         Persona profesorGuardado = profesorDAO.guardar(profesor);
         return new ResponseEntity<>(profesorGuardado, HttpStatus.CREATED);
@@ -67,13 +66,11 @@ public class ProfesorController {
             @ApiResponse(responseCode = "404", description = "No hay profesores que mostrar", content = @Content)})
     @GetMapping("/lista")
     public ResponseEntity<?> buscarTodos(){
-        List<Profesor> profesores = (List<Profesor>) ((ProfesorDAO)profesorDAO).buscarTodosProfesor();
-        if(profesores.isEmpty()){
-            throw new NotFoundException("No existen profesores");
-
-        }
-        return new ResponseEntity<>(profesores, HttpStatus.OK);
+        return new ResponseEntity<>((List<Profesor>)
+                ((ProfesorDAO)profesorDAO).buscarTodosProfesor(), HttpStatus.OK);
     }
+
+
 
     @Operation(summary = "Buscar Profesor", description = "Busca un profesor por su ID correspondiente")
     @ApiResponses(value = {
@@ -84,11 +81,9 @@ public class ProfesorController {
             @ApiResponse(responseCode = "400", description = "Peticion invalida el ID debe ser Integer", content = @Content)})
     @GetMapping("/buscar/id/{profesorId}")
     public ResponseEntity<?> buscarProfesorPorId(@PathVariable Integer profesorId){
-        Optional<Profesor> oProfesor = ((ProfesorDAO)profesorDAO).buscarProfesorPorId(profesorId);
-        if(!oProfesor.isPresent()){
-            throw new NotFoundException("No existe el profesor con el ID " + profesorId);
-        }
-        return new ResponseEntity<>(oProfesor.get(), HttpStatus.OK);
+
+        return new ResponseEntity<>(
+                ((ProfesorDAO)profesorDAO).buscarProfesorPorId(profesorId).get(), HttpStatus.OK);
 
     }
 
@@ -101,12 +96,10 @@ public class ProfesorController {
             @ApiResponse(responseCode = "400", description = "Peticion invalida, parametros no validos", content = @Content)})
     @PutMapping("/upd/profesorId/{profesorId}")
     public ResponseEntity<?> actualizarProfesor(@PathVariable Integer profesorId,@RequestBody Profesor profesor){
-        Optional<Profesor> actualizarProfesor= ((ProfesorDAO)profesorDAO).buscarProfesorPorId(profesorId);
-        if(!actualizarProfesor.isPresent()){
-            throw new NotFoundException("No existe el profesor con el ID " + profesorId);
 
-        }
-        Profesor profesorActualizado = (Profesor) ((ProfesorDAO)profesorDAO).actualizarProfesor(actualizarProfesor.get(),profesor);
+        Profesor profesorActualizado = (Profesor) ((ProfesorDAO)profesorDAO)
+                .actualizarProfesor(((ProfesorDAO)profesorDAO)
+                        .buscarProfesorPorId(profesorId).get(),profesor);
         return new ResponseEntity<Persona>(profesorActualizado,HttpStatus.OK);
     }
 
@@ -119,10 +112,6 @@ public class ProfesorController {
     @DeleteMapping("/del/profesorId/{profesorId}")
     public ResponseEntity<?> eliminarAlumno(@PathVariable Integer profesorId){
         Map<String,Object> respuesta = new HashMap<String,Object>();
-        Optional<Persona> oProfesor = profesorDAO.buscarPorId(profesorId);
-        if(!oProfesor.isPresent()){
-            throw new NotFoundException("No existe el profesor con el ID " + profesorId);
-        }
         profesorDAO.eliminarPorId(profesorId);
         respuesta.put("OK","Profesor ID:" + profesorId + "eliminado exitosamente");
         return new ResponseEntity<>(respuesta, HttpStatus.NO_CONTENT);
@@ -139,8 +128,6 @@ public class ProfesorController {
     @GetMapping("/lista/dto")
     public ResponseEntity<?> obtenerProfesoresDto(){
         List<Profesor> profesores = (List<Profesor>) ((ProfesorDAO)profesorDAO).buscarTodosProfesor();
-        if(profesores.isEmpty())
-            throw new BadRequestException("No existen profesores");
         List<ProfesorDTO> profesoresDto = profesores.
                 stream()
                 .map(ProfesorMapper::mapperProfesor)

@@ -62,6 +62,12 @@ public class PabellonController {
 
     }
 
+    @GetMapping("/buscar/{pabellonId}")
+    public ResponseEntity<?> buscarPabellonId(@PathVariable Integer pabellonId){
+        return new ResponseEntity<>(pabellonDAO.findById(pabellonId),HttpStatus.ACCEPTED);
+
+    }
+
 
     @Operation(summary = "Listar pabellones", description = "Muestra una lista de los pabellones disponibles")
     @ApiResponses(value = {

@@ -1,8 +1,11 @@
 package dev.rmpedro.apirest.services;
 
+import dev.rmpedro.apirest.exceptions.NotFoundException;
 import dev.rmpedro.apirest.models.entities.Pabellon;
 import dev.rmpedro.apirest.repositories.PabellonRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 
 @Service
@@ -32,6 +35,15 @@ public class PabellonDAOImpl extends GenericoDAOImpl<Pabellon, PabellonRepositor
         pabellonActualizado=repository.save(pabellonEncontrado);
 
         return pabellonActualizado;
+    }
+
+    @Override
+    public Pabellon findById(Integer id) {
+        Optional<Pabellon> pabellonEncontrado = repository.findById(id);
+        if(!pabellonEncontrado.isPresent()){
+            throw new NotFoundException("No existe el pabellon con el id");
+        }
+        return pabellonEncontrado.get();
     }
 
 

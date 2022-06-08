@@ -5,6 +5,7 @@ import dev.rmpedro.apirest.mapper.AulaMapper;
 import dev.rmpedro.apirest.models.dto.AulaDTO;
 import dev.rmpedro.apirest.models.entities.Aula;
 import dev.rmpedro.apirest.services.AulaDAO;
+import dev.rmpedro.apirest.utils.ValidationData;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -39,16 +40,12 @@ public class AulaController {
     public ResponseEntity<?> crear(@Valid @RequestBody Aula aula, BindingResult result) {
         Map<String, Object> validaciones = new HashMap<>();
         if (result.hasErrors()) {
-            List<String> listaErrores = result.getFieldErrors()
-                    .stream()
-                    .map(errores -> "Campo :'" + errores.getField() + "'" + errores.getDefaultMessage())
-                    .collect(Collectors.toList());
-            validaciones.put("Lista errores", listaErrores);
-            return new ResponseEntity<>(validaciones, HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(ValidationData.validarDatos(result), HttpStatus.BAD_REQUEST);
         }
         Aula nuevaAula = aulaDAO.guardar(aula);
         return new ResponseEntity<>(nuevaAula, HttpStatus.CREATED);
     }
+
 
     @Operation(summary = "Listar aulas", description = "Muestra una lista de las aulas existentes")
     @ApiResponses(value = {
@@ -58,11 +55,9 @@ public class AulaController {
             @ApiResponse(responseCode = "404", description = "No existen aulas que mostrar", content = @Content)})
     @GetMapping("/listar")
     public ResponseEntity<?> buscarTodos() {
-        List<Aula> aulas = (List<Aula>) aulaDAO.buscarTodos();
-        if (aulas.isEmpty()) {
-            throw new NotFoundException("No hay aulas que mostrar");
-        }
-        return new ResponseEntity<>(aulas, HttpStatus.OK);
+
+
+        return new ResponseEntity<>(aulaDAO.buscarTodos(), HttpStatus.OK);
 
     }
 
@@ -75,11 +70,8 @@ public class AulaController {
             @ApiResponse(responseCode = "400", description = "Parametros no validos, el Id debe ser entero")})
     @GetMapping("/buscar/aulaId/{aulaId}")
     public ResponseEntity<?> buscarAula(@PathVariable Integer aulaId) {
-        Optional<Aula> aula = aulaDAO.buscarPorId(aulaId);
-        if (!aula.isPresent()) {
-            throw new NotFoundException("No existe el aula con ID " + aulaId);
-        }
-        return new ResponseEntity<>(aula.get(), HttpStatus.OK);
+
+        return new ResponseEntity<>(aulaDAO.buscarPorId(aulaId).get(), HttpStatus.OK);
 
     }
 
@@ -92,15 +84,12 @@ public class AulaController {
             @ApiResponse(responseCode = "400", description = "Parametros no validos",content = @Content)})
     @PutMapping("/upd/aulaId/{aulaId}")
     public ResponseEntity<?> actualizarAula(@PathVariable Integer aulaId, @RequestBody Aula aula) {
-        Optional<Aula> aulaEncontrada = aulaDAO.buscarPorId(aulaId);
-        if (!aulaEncontrada.isPresent()) {
-            throw new NotFoundException("No existe el aula con ID " + aulaId);
-        }
-        Aula aulaActualizada = aulaDAO.actualizar(aulaEncontrada.get(), aula);
 
+        Aula aulaActualizada = aulaDAO.actualizar(aulaDAO.buscarPorId(aulaId).get(), aula);
         return new ResponseEntity<>(aulaActualizada, HttpStatus.CREATED);
 
     }
+
 
     @Operation(summary = "Eliminar Aula", description = "Elimina el aula con el ID correspondiente")
     @ApiResponses(value = {
@@ -109,17 +98,13 @@ public class AulaController {
             @ApiResponse(responseCode = "400", description = "Peticion invalida, parametros no validos", content = @Content)})
     @DeleteMapping("/del/aulaId/{aulaId}")
     public ResponseEntity<?> eliminarAula(@PathVariable Integer aulaId) {
-
-        Optional<Aula> aulaEncontrada = aulaDAO.buscarPorId(aulaId);
-        if (!aulaEncontrada.isPresent()) {
-            throw new NotFoundException("No existe el aula con ID " + aulaId);
-        }
         aulaDAO.eliminarPorId(aulaId);
         Map<String, String> respuesta = new HashMap<>();
         respuesta.put("OK", "Aula ID:" + aulaId + "eliminado exitosamente");
         return new ResponseEntity<>(respuesta, HttpStatus.OK);
 
     }
+
 
     @Operation(summary = "Listar aulas en formato breve", description = "Muestra una lista de las aulas disponibles con sus datos esenciales")
     @ApiResponses(value = {
@@ -130,17 +115,15 @@ public class AulaController {
     @GetMapping("/lista/dto")
     public ResponseEntity<?> obtenerAulasDto() {
         List<Aula> aulas = (List<Aula>) aulaDAO.buscarTodos();
-        if (aulas.isEmpty())
-            throw new BadRequestException("No existen aulas");
         List<AulaDTO> aulasDto = aulas.
                 stream()
                 .map(AulaMapper::mapperAula)
                 .collect(Collectors.toList());
-
         return new ResponseEntity<>(aulasDto, HttpStatus.OK);
 
 
     }
+
 
 
 }
