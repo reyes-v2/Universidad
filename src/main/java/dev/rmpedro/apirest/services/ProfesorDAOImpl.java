@@ -22,9 +22,17 @@ public class ProfesorDAOImpl extends PersonaDAOImpl implements ProfesorDAO{
     }
 
     @Override
-    public Iterable<Persona> findProfesoresByCarrera(String carrera) {
-        return ((ProfesorRepository)repository).findProfesoresByCarrera(carrera);
+    public List<Profesor> findProfesoresByCarrera(String carrera) {
+        List<Profesor> profesores = (List<Profesor>) ((ProfesorRepository)repository).findProfesoresByCarrera(carrera);
+        if(profesores.isEmpty()){
+            throw new NotFoundException("No existen profesores en la carrera: " + carrera);
+
+        }
+
+        return profesores;
     }
+
+
     @Override
     public Persona actualizarProfesor(Persona profesorEncontrado, Profesor profesor) {
         Persona profesorActualizado = null;

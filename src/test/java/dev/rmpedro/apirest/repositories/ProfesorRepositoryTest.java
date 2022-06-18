@@ -56,7 +56,7 @@ public class ProfesorRepositoryTest {
         profesorEncontrado.setCarreras(carreraSet);
         repository.save(profesorEncontrado);
 
-        List<Persona> profesoresPorCarrera = (List<Persona>) repository.findProfesoresByCarrera("Ingenieria en Sistemas");
+        List<Profesor> profesoresPorCarrera = (List<Profesor>) repository.findProfesoresByCarrera("Ingenieria en Sistemas");
         assertThat(profesoresPorCarrera.size()).isGreaterThan(0);
 
 

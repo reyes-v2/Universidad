@@ -2,6 +2,7 @@ package dev.rmpedro.apirest.repositories;
 
 import dev.rmpedro.apirest.datos.EmpleadoDatosDummy;
 import dev.rmpedro.apirest.enums.TipoEmpleado;
+import dev.rmpedro.apirest.models.entities.Empleado;
 import dev.rmpedro.apirest.models.entities.Persona;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -35,7 +36,7 @@ class EmpleadoRepositoryTest {
 
     @Test
     void findEmpleadoByTipoEmpleado() {
-        List<Persona> empleadosMantenimiento = (List<Persona>) repository.findEmpleadoByTipoEmpleado(TipoEmpleado.ADMINISTRATIVO);
+        List<Empleado> empleadosMantenimiento = (List<Empleado>) repository.findEmpleadoByTipoEmpleado(TipoEmpleado.ADMINISTRATIVO);
         assertThat(empleadosMantenimiento.size()).isEqualTo(3);
     }
 }

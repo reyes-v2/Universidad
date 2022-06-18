@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.*;
 
 import javax.persistence.*;
@@ -45,6 +46,7 @@ public class Pabellon implements Serializable {
 	private Direccion direccion;
 	
 	@OneToMany(mappedBy = "pabellon",fetch = FetchType.LAZY)
+	@JsonIgnoreProperties({"pabellon"})
 	private Set<Aula> aulas;
 
 	

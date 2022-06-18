@@ -13,7 +13,7 @@ import java.util.Optional;
 public interface ProfesorRepository extends PersonaRepository{
 
    @Query("select p from Profesor p join fetch p.carreras c where c.nombre = ?1")
-    Iterable<Persona> findProfesoresByCarrera(String carrera);
+    Iterable<Profesor> findProfesoresByCarrera(String carrera);
     @Query("select p from Profesor p")
     Iterable<Profesor>  buscarTodosProfesor();
     @Query("select p from Profesor p where p.id=?1")

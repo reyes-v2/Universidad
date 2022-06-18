@@ -23,8 +23,12 @@ public class EmpleadoDAOImpl extends PersonaDAOImpl implements EmpleadoDAO{
     }
 
     @Override
-    public Iterable<Persona> findEmpleadoByTipoEmpleado(TipoEmpleado tipoEmpleado) {
-        return ((EmpleadoRepository) repository).findEmpleadoByTipoEmpleado(tipoEmpleado);
+    public Iterable<Empleado> findEmpleadoByTipoEmpleado(String tipoEmpleado) {
+        List<Empleado> empleados = (List<Empleado>) ((EmpleadoRepository) repository).findEmpleadoByTipoEmpleado(TipoEmpleado.valueOf(tipoEmpleado.toUpperCase()));
+        if(empleados.isEmpty()){
+            throw new NotFoundException("No hay empleados del tipo: " + tipoEmpleado);
+        }
+        return empleados;
     }
 
     @Override

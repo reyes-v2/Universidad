@@ -5,6 +5,7 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import dev.rmpedro.apirest.enums.Pizarron;
 import lombok.*;
 
@@ -46,6 +47,7 @@ public class Aula implements Serializable{
 	private Date fechaModificacion;
 
 	@ManyToOne(optional = true, cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@JsonIgnoreProperties({"aulas"})
 	@JoinColumn(name = "pabellon_id",foreignKey = @ForeignKey(name = "FK_PABELLON_ID"))
 	private Pabellon pabellon;
 

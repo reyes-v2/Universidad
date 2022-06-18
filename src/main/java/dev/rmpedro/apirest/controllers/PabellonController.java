@@ -61,10 +61,19 @@ public class PabellonController {
 
 
     }
+    @GetMapping("/buscar/localidad/{localidad}")
+    public ResponseEntity<?> buscarPabellonPorLocalidad(@PathVariable String localidad){
+        return new ResponseEntity<>(pabellonDAO.findPabellonsByDireccionLocalidad(localidad),HttpStatus.OK);
+    }
 
     @GetMapping("/buscar/{pabellonId}")
     public ResponseEntity<?> buscarPabellonId(@PathVariable Integer pabellonId){
         return new ResponseEntity<>(pabellonDAO.findById(pabellonId),HttpStatus.ACCEPTED);
+
+    }
+    @GetMapping("/buscar/nombre/{pabellonNombre}")
+    public ResponseEntity<?> buscarPabellonNombre(@PathVariable String pabellonNombre){
+        return new ResponseEntity<>(pabellonDAO.findPabellonByNombreEquals(pabellonNombre),HttpStatus.ACCEPTED);
 
     }
 

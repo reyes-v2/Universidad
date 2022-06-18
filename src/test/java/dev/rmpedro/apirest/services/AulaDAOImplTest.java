@@ -30,7 +30,7 @@ class AulaDAOImplTest {
         when(aulaRepository.findAulaByPizarronEquals(Pizarron.PIZARRA_TIZA))
                 .thenReturn(List.of(AulasDatosDummy.aula03()));
 
-        List<Aula> aulasTiza = (List<Aula>) aulaDAO.findAulaByPizarronEquals(Pizarron.PIZARRA_TIZA);
+        List<Aula> aulasTiza = (List<Aula>) aulaDAO.findAulaByPizarronEquals("tiza");
 
         assertThat(aulasTiza.size()).isGreaterThan(0);
         assertThat(aulasTiza.get(0)).isEqualTo(AulasDatosDummy.aula03());

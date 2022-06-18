@@ -29,7 +29,7 @@ class EmpleadoDAOImplTest {
     void findEmpleadoByTipoEmpleado() {
         when(empleadoRepository.findEmpleadoByTipoEmpleado(TipoEmpleado.ADMINISTRATIVO))
                 .thenReturn(List.of(EmpleadoDatosDummy.empleado01(),EmpleadoDatosDummy.empleado02(),EmpleadoDatosDummy.empleado03()));
-        List<Persona> empleados = (List<Persona>) empleadoDAO.findEmpleadoByTipoEmpleado(TipoEmpleado.ADMINISTRATIVO);
+        List<Empleado> empleados = (List<Empleado>) empleadoDAO.findEmpleadoByTipoEmpleado("administrativo");
 
         assertThat(empleados.size()).isEqualTo(3);
         verify(empleadoRepository).findEmpleadoByTipoEmpleado(TipoEmpleado.ADMINISTRATIVO);

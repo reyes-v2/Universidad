@@ -11,4 +11,5 @@ public interface PersonaDAO extends GenericoDAO<Persona>{
     public Iterable<Persona> buscarPorApellido(String apellido);
 
 
+
 }

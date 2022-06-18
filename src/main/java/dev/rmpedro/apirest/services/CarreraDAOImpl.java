@@ -1,10 +1,13 @@
 package dev.rmpedro.apirest.services;
 
+import dev.rmpedro.apirest.exceptions.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import dev.rmpedro.apirest.models.entities.Carrera;
 import dev.rmpedro.apirest.repositories.CarreraRepository;
+
+import java.util.List;
 
 @Service
 public class CarreraDAOImpl extends GenericoDAOImpl<Carrera,CarreraRepository> implements CarreraDAO{
@@ -32,7 +35,11 @@ public class CarreraDAOImpl extends GenericoDAOImpl<Carrera,CarreraRepository> i
 
 	@Override
 	public Iterable<Carrera> buscarCarrerasPorProfesorNombreYApellido(String nombre, String apellido) {
-		return repository.buscarCarrerasPorProfesorNombreYApellido(nombre,apellido);
+		List<Carrera> carreras = (List<Carrera>) repository.buscarCarrerasPorProfesorNombreYApellido(nombre,apellido);
+		if(carreras.isEmpty()){
+			throw new NotFoundException("No se encontraron carreras con el profesor: " + nombre + " " + apellido);
+		}
+		return carreras;
 	}
 
 	@Override

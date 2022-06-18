@@ -5,6 +5,7 @@ import dev.rmpedro.apirest.models.entities.Pabellon;
 import dev.rmpedro.apirest.repositories.PabellonRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 
@@ -17,13 +18,22 @@ public class PabellonDAOImpl extends GenericoDAOImpl<Pabellon, PabellonRepositor
     }
 
     @Override
-    public Iterable<Pabellon> findPabellonsByDireccionLocalidad(String direccion_localidad) {
-        return repository.findPabellonsByDireccionLocalidad(direccion_localidad);
+    public Iterable<Pabellon> findPabellonsByDireccionLocalidad(String direccionLocalidad) {
+        List<Pabellon> pabellonList = (List<Pabellon>) repository.findPabellonsByDireccionLocalidad(direccionLocalidad);
+        if(pabellonList.isEmpty()){
+            throw new NotFoundException("No hay pabellones que mostrar");
+        }
+        return pabellonList;
     }
 
     @Override
     public Iterable<Pabellon> findPabellonByNombreEquals(String nombrePabellon) {
-        return repository.findPabellonByNombreEquals(nombrePabellon);
+        List<Pabellon>pabellons = (List<Pabellon>) repository.findPabellonByNombreEquals(nombrePabellon);
+        if(pabellons.isEmpty()){
+            throw new NotFoundException("No hay pabellones que mostrar con el nombre " + nombrePabellon);
+
+        }
+        return pabellons;
     }
 
     @Override

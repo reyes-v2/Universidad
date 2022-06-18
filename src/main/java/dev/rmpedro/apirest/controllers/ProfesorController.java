@@ -87,6 +87,14 @@ public class ProfesorController {
 
     }
 
+    @GetMapping("/buscar/carrera/{carrera}")
+    public ResponseEntity<?> buscarProfesoresPorCarrera(@PathVariable String carrera){
+        List<Profesor> profesors = ((ProfesorDAO)profesorDAO).findProfesoresByCarrera(carrera);
+        List<ProfesorDTO> profesorDTOS = profesors.stream().map(ProfesorMapper::mapperProfesor).collect(Collectors.toList());
+        return new ResponseEntity<>(profesorDTOS,HttpStatus.OK);
+
+    }
+
     @Operation(summary = "Actualizar Profesor", description = "Actualiza el profesor con el ID correspondiente")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "Profesor actualizado",
@@ -137,6 +145,7 @@ public class ProfesorController {
 
 
     }
+
 
 
 }

@@ -59,6 +59,12 @@ public class CarreraController {
 
         return carreraDAO.buscarPorId(carreraId).get();
     }
+    @GetMapping("/buscar/profesor/nombre/{nombre}/apellido/{apellido}")
+    public ResponseEntity<?> buscarCarreraPorProfesorNombre(@PathVariable String nombre,@PathVariable String apellido){
+        List<Carrera> carreras = (List<Carrera>) carreraDAO.buscarCarrerasPorProfesorNombreYApellido(nombre,apellido);
+        List<CarreraDTO> carreraDTOS = carreras.stream().map(CarreraMapper::mapperCarrera).collect(Collectors.toList());
+        return new ResponseEntity<>(carreraDTOS,HttpStatus.OK);
+    }
 
     @Operation(summary = "Crear nueva carrera", description = "Guardar una nueva carrera en la BD")
     @ApiResponses(value = {

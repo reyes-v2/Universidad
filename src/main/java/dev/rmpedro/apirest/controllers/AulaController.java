@@ -16,6 +16,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.GroupSequence;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
@@ -73,6 +75,18 @@ public class AulaController {
 
         return new ResponseEntity<>(aulaDAO.buscarPorId(aulaId).get(), HttpStatus.OK);
 
+    }
+    @GetMapping("/buscar/pizarron/{tipoPizarron}")
+    public ResponseEntity<?> buscarAulaPorTipoPizarron(@PathVariable String tipoPizarron){
+        return new ResponseEntity<>(aulaDAO.findAulaByPizarronEquals(tipoPizarron),HttpStatus.OK);
+    }
+    @GetMapping("/buscar/pabellon/{nombrePabellon}")
+    public ResponseEntity<?> buscarAulaPorPabellonNombre(@PathVariable String nombrePabellon){
+        return new ResponseEntity<>(aulaDAO.findAulaByPabellonNombre(nombrePabellon),HttpStatus.OK);
+    }
+    @GetMapping("/buscar/numeroaula/{numeroAula}")
+    public ResponseEntity<?> buscarAulaPorNumero(@PathVariable Integer numeroAula){
+        return new ResponseEntity<>(aulaDAO.findAulaByNumeroAulaEquals(numeroAula),HttpStatus.OK);
     }
 
     @Operation(summary = "Actualizar aula", description = "Actualiza el aula con el Id correspondiente")

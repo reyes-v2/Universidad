@@ -7,6 +7,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PabellonRepository extends CrudRepository<Pabellon,Integer> {
 
-    Iterable<Pabellon> findPabellonsByDireccionLocalidad(String direccion_localidad);
+    Iterable<Pabellon> findPabellonsByDireccionLocalidad(String direccionLocalidad);
     Iterable<Pabellon> findPabellonByNombreEquals(String nombrePabellon);
 }

@@ -1,5 +1,6 @@
 package dev.rmpedro.apirest.controllers;
 
+import dev.rmpedro.apirest.enums.TipoEmpleado;
 import dev.rmpedro.apirest.exceptions.BadRequestException;
 import dev.rmpedro.apirest.exceptions.NotFoundException;
 import dev.rmpedro.apirest.mapper.EmpleadoMapper;
@@ -80,6 +81,11 @@ public class EmpleadoController {
                 ((EmpleadoDAO) empleadoDAO).buscarEmpleadoPorId(empleadoId).get(), HttpStatus.OK);
 
     }
+    @GetMapping("/buscar/tipoempleado/{tipoEmpleado}")
+    public ResponseEntity<?> buscarEmpleadoporTipo(@PathVariable String tipoEmpleado){
+        return new ResponseEntity<>(((EmpleadoDAO)empleadoDAO).findEmpleadoByTipoEmpleado(tipoEmpleado),HttpStatus.OK);
+
+    }
 
     @Operation(summary = "Actualizar Empleado", description = "Actualiza el empleado con el ID correspondiente")
     @ApiResponses(value = {
@@ -131,5 +137,6 @@ public class EmpleadoController {
 
 
     }
+
 
 }

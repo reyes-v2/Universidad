@@ -12,7 +12,7 @@ import java.util.Optional;
 @Repository("repositorioEmpleados")
 public interface EmpleadoRepository extends PersonaRepository{
     @Query("Select p from Empleado p where p.tipoEmpleado=?1")
-    Iterable<Persona> findEmpleadoByTipoEmpleado(TipoEmpleado tipoEmpleado);
+    Iterable<Empleado> findEmpleadoByTipoEmpleado(TipoEmpleado tipoEmpleado);
     @Query("select e from Empleado e")
     Iterable<Empleado>  buscarTodosEmpleado();
     @Query("select e from Empleado e where e.id=?1")
